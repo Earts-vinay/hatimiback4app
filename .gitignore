@@ -1,0 +1,7 @@
+node_modules/
+views/
+uploads/
+test.js
+
+.env
+.env_backup
