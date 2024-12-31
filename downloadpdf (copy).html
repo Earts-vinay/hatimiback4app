@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retreat Invoice</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../pms-backend/pdf.css" media="print">
+
+
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <style>
+      body{
+      font-family: "Poppins", sans-serif;
+        }
+
+        .textEnd{
+          text-align: end
+        }
+
+      table{
+        width: 100%
+      }
+      .width40{
+        width: 48%
+      }
+      .width50{
+        /* width: 45%; */
+      font-size: 9px;
+      padding-top: 1px;
+      padding-bottom: 0px;
+      }
+      .newWidth{
+        width: 45%;
+        font-size: 8px;
+        padding-top: 3px;
+    padding-bottom: 3px
+      }
+      .mb-10{
+        margin-bottom: 10px;
+      font-size: 9px;
+      width: fit-content;
+      text-decoration: underline;
+      font-weight: 500 !important;
+      }
+      .mb-15{
+        margin-bottom: 15px;
+      }
+      .mt-70{
+        margin-top: -50px
+      }
+      .padding20{
+        padding: 25px 10px
+      }
+      .padding40{
+        padding: 15px;
+        border: 1px solid #dee2e6;
+      }
+      p{
+        font-size: 8px !important
+      }
+      .roomDeatilsTable th{
+        font-size: 8px;
+        font-weight: 500;
+      }
+      .roomDeatilsTable td{
+        font-size: 8px
+      }
+      .font10{
+        font-size: 9px
+      }
+      .heading{
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 2px;
+        text-align: center;
+      }
+      h5{
+        font-weight: 400!important
+      }
+      @media print {
+      .page-break {
+        page-break-before: always;
+      }
+    }
+    .width20{
+      width: 20%;
+    }
+    .width43{
+      width: 43%;
+    }
+    .width30{
+      width: 30%;
+    }
+    .border-bottom{
+      border-bottom: 1px solid #dee2e6
+    }
+    .borderBothside{
+      border-top: 1px solid #dee2e6!important;
+      border-bottom: 1px solid #dee2e6!important
+    }
+    .paddingTable{
+      padding: 30px 7px !important;
+    }
+    .borderBottomNone{
+      border-bottom: none !important
+    }
+    #content{
+      padding: 30px
+    }
+    .thankSection{
+      font-size: 10px !important;
+    font-weight: 500;
+    margin-bottom: 7px;
+    }
+    .Accommodation{
+      padding-top: 15px
+    }
+    .FontWei500{
+      font-weight: 500
+    }
+    .paymentInfo{
+      font-size: 9px;
+      width: fit-content;
+      text-decoration: underline;
+      font-weight: 500 !important;
+    }
+    .lastAmount {
+      background-color: #e4e4e4;
+    }
+    .lastAmount td{
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .Extra_Services{
+      padding: 5px 0px;
+    }
+    .padd15{
+      padding-right: 15px
+    }
+    .width30{
+      width: 30%
+    }
+    .width35{
+      width: 35%
+    }
+    .verticalTop{
+      vertical-align: top !important;
+    }
+    .ComapnyName{
+      font-size: 10px;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+    }
+    .supportData{
+      font-size: 8px
+    }
+    .SuppoertHeading{
+      font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    }
+     th, td{
+        vertical-align: top !important;
+    }
+    .textType{
+    text-transform: capitalize;
+  }
+  .paddingLeftNone{
+    padding-left: 0px !important;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div id="content" class="">
+    <section class="padding40">
+
+    <div class="" style="padding-bottom : 3px">
+
+      <table>
+        <tbody>
+          <tr>
+            <td class="width30">
+              <img width="130px" src="https://hatimi.s3.amazonaws.com/hatimi.svg" alt="" class="logo">
+
+          </td>
+          <td class="width35 verticalTop">
+            <div class="invoice mb-1">
+              <h2 class="heading">Tax Invoice</h2>
+            </div>
+          </td>
+          <td class="width35">
+            <table>
+              <tbody>
+                <tr>
+                  <td colspan="2">
+                    <div class="invoice mb-1">
+                      <h2 class="ComapnyName textType">{{this.company_name}}</h2>
+                    </div>
+                  </td>
+                  </tr>
+                  <!-- <tr>
+                    <td class="width50 FontWei500">Invoice No</td>
+                    <td class="width50">{{this.booking_id}}</td>
+                  </tr> -->
+                  <tr>
+                    <td class="width50 FontWei500">CIN</td>
+                    <td class="width50">{{this.cin}}</td>
+                  </tr>
+                  <tr>
+                    <td class="width50 FontWei500">Address</td>
+                    <td class="width50">Fort Mumbai, 400001.</td>
+                  </tr>
+                  <!-- <tr>
+                    <td class="width50 FontWei500">Contact No.</td>
+                    <td class="width50">+91 9820834976</td>
+                  </tr> -->
+                  <!-- <tr>
+                    <td class="width50 FontWei500">{{this.property_name}}</td>
+                    <td class="width50">{{this.phone_number}}</td>
+                  </tr> -->
+                  <tr>
+                    <td class="width50 FontWei500">GST No.</td>
+                    <td class="width50">{{this.gstin}}</td>
+                  </tr>
+                  <tr>
+                    <td class="width50 FontWei500">HSN Code</td>
+                    <td class="width50">{{this.hsn}}</td>
+                  </tr>
+                  <tr>
+                    <td class="width50 FontWei500">Place of Supply</td>
+                    <td class="width50 textType">{{this.property_state}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+<div class="borderBothside padding20">
+  <table>
+    <tbody>
+        <tr>
+            <td class="width40"><h5 class="mb-10">Guest Information</h5></td>
+            <td class=""></td>
+            <td class="width40 "><h5 class="mb-10">Booking Information</h5></td>
+        </tr>
+    </tbody>
+  </table>
+  <table>
+      <tbody>
+          <tr>
+                <td class="width40 verticalTop">
+                  <table class="">
+                        <tbody>
+
+                              <tr>
+                                  <td class="width50 FontWei500 padd15">ITS</td>
+                                  <td class="width50">{{this.its}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="width50 FontWei500 padd15">Company Name</td>
+                                  <td class="width50">-</td>
+                              </tr>
+                              <tr>
+                                  <td class="width50 FontWei500 padd15">Company GST</td>
+                                  <td class="width50">-</td>
+                              </tr>
+                              <tr>
+                                  <td class="width50 FontWei500 padd15">Name</td>
+                                  <td class="width50 textType">{{this.customer_info.name}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="width50 FontWei500 padd15">Address</td>
+                                  <td class="width50 textType">{{this.office_address}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="width50 FontWei500 padd15">Email Id</td>
+                                  <td class="width50 textType">{{this.customer_info.email}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="width50 FontWei500 padd15">Contact No.</td>
+                                  <td class="width50 textType">{{this.customer_info.mobile_number}}</td>
+                              </tr>
+                        </tbody>
+                  </table>
+                </td>
+                <td></td>
+                <td class="width40">
+                      <table>
+                            <tbody>
+                              <tr>
+                                <td class="width50 FontWei500">Invoice No</td>
+                                <td class="width50">{{this.booking_id}}</td>
+                              </tr>
+                                  <tr>
+                                      <td class="width50 FontWei500">Property Name</td>
+                                      <td class="width50 textType">{{this.property_city}} {{this.property_name}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="width50 FontWei500">Booking date</td>
+                                      <td class="width50 textType">{{this.formateddate}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="width50 FontWei500">Booking ID</td>
+                                      <td class="width50">{{this.booking_id}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="width50 FontWei500">No of Rooms</td>
+                                      <td class="width50">{{this.number_of_rooms}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="width50 FontWei500">Check In Date</td>
+                                      <td class="width50">{{this.check_in}} | {{this.property_check_in_time}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="width50 FontWei500">Check out Date</td>
+                                      <td class="width50">{{this.check_out}} | {{this.property_check_out_time}}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td class="width50 FontWei500">No of Persons</td>
+                                      <td class="width50">{{this.adults}} Adults | {{this.children}} Childrens</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="width50 FontWei500">Stay</td>
+                                      <td class="width50 textType">{{this.daysDifference}} Night</td>
+                                  </tr>
+                            </tbody>
+                      </table>
+                </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+
+
+    <!-- Accommodation -->
+
+    <div class="Accommodation">
+        <h6 class="font10">Accommodation details</h6>
+        <table class="table roomDeatilsTable">
+            <thead class="">
+              <tr>
+                <th scope="col">Sno</th>
+                <th scope="col">Room</th>
+                <th scope="col"></th>
+                <th scope="col">Charges/Night</th>
+                <th scope="col">Stay</th>
+                <th scope="col" class="textEnd">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+          {{#each room_info}}
+                <tr>
+
+                <td>{{this.index}}</td>
+                <td>{{this.room_name}} {{this.room_type}}</td>
+                <td></td>
+                <td>₹{{this.room_price_new}}</td>
+                <td>{{this.daysDifference}} Night</td>
+                <td class="textEnd">₹{{this.room_price}}</td>
+              </tr>
+          {{/each}}
+            </tbody>
+          </table>
+    </div>
+
+
+    <!-- Extra Services -->
+
+    <div class="Extra_Services">
+        <h6 class="font10"> Extra Service details </h6>
+        <table class="table roomDeatilsTable">
+            <thead class="">
+              <tr>
+                <th scope="col">Sno</th>
+                <th scope="col">Service Name</th>
+                <th scope="col">Service Quanity</th>
+                <th scope="col">Charges/Night</th>
+                <th scope="col">Stay</th>
+                <th scope="col" class="textEnd">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+            {{#each extra_services_info}}
+                  <tr>
+                  <td>{{this.index}}</td>
+                  <td>{{this.service_name}}</td>
+                  <td>{{this.service_count}}</td>
+                  <td>₹{{this.service_price_new}}</td>
+                  <td>{{this.daysDifference}} Night</td>
+                  <td class="textEnd">₹{{this.service_price}}</td>
+                </tr>
+            {{/each}}
+            <tr>
+                <td colspan="4" class="paddingTable borderBottomNone paddingLeftNone">
+                    <table>
+                      <tbody>
+                        <tr>
+                            <td colspan="2"><h6 class=" mb-15 paymentInfo">Payment Information</h6></td>
+                        </tr>
+                            <tr>
+                                <td class="FontWei500" style="width:30%">Name</td>
+                                <td >{{this.customer_info.name}}</td>
+                            </tr>
+                            <tr>
+                                <td class="FontWei500" style="width:30%">Mode of payment</td>
+                                <td style="text-transform : capitalize">{{this.mode_of_payment}}</td>
+                            </tr>
+                            <tr>
+                                <td class="FontWei500" style="width:30%">Transaction ID</td>
+                                <td>{{this.transaction_id}}</td>
+                            </tr>
+                      </tbody>
+                    </table>
+                </td>
+                <td colspan="2" class="borderBottomNone">
+                  <table>
+                        <tbody>
+
+                              <tr>
+                                  <td class="newWidth">Amount</td>
+                                  <td class="newWidth textEnd" >₹{{this.billing_info.total_Cost}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="newWidth">Discount</td>
+                                  <td class="newWidth textEnd">₹{{this.billing_info.discount}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="newWidth">CGST @ {{this.gst_data.cgst_percent}}%</td>
+                                  <td class="newWidth textEnd">₹{{this.billing_info.cgst}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="newWidth">SGST @ {{this.gst_data.sgst_percent}}%</td>
+                                  <td class="newWidth textEnd">₹{{this.billing_info.sgst}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="newWidth">IGST @ {{this.gst_data.igst_percent}}%</td>
+                                  <td class="newWidth textEnd">₹{{this.billing_info.igst}}</td>
+                              </tr>
+                              <tr>
+                                  <td class="newWidth border-bottom" colspan="2"></td>
+                              </tr>
+                              <tr class="lastAmount">
+                                  <td class="newWidth" >Amount Paid</td>
+                                  <td class="newWidth textEnd">₹{{this.billing_info.amount_payable}}</td>
+                              </tr>
+                        </tbody>
+                  </table>
+                </td>
+            </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <div class="">
+        <p class="text-center thankSection">Thank you for Booking with us</p>
+    </div>
+    <table>
+        <tbody>
+            <tr>
+                <td><h3 class="SuppoertHeading">Support</h3></td>
+            </tr>
+            <tr>
+                <td><div class="supportData">Email : info@hatimiretreats.com & Phone No. : +91 7506305353</div></td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <div class="paymentdeatils">
+      <h6 class="font10 mb-15">Payment Information</h6>
+      <table>
+          <tbody>
+              <tr>
+                    <td class="width43">
+                      <table class="mt-70">
+                            <tbody>
+
+                                  <tr>
+                                      <td class="newWidth">Name</td>
+                                      <td class="newWidth">{{this.customer_info.name}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="newWidth">Mode of payment</td>
+                                      <td class="newWidth">{{this.mode_of_payment}}</td>
+                                  </tr>
+                                  <tr>
+                                      <td class="newWidth">Transaction ID</td>
+                                      <td class="newWidth">{{this.transaction_id}}</td>
+                                  </tr>
+                            </tbody>
+                      </table>
+                    </td>
+                    <td class="width20"></td>
+                    <td class="width30">
+                          <table>
+                                <tbody>
+
+                                      <tr>
+                                          <td class="newWidth">Amount</td>
+                                          <td class="newWidth">₹{{this.billing_info.total_Cost}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="newWidth">Discount</td>
+                                          <td class="newWidth">₹{{this.billing_info.discount}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="newWidth">CGST (%)</td>
+                                          <td class="newWidth">₹{{this.billing_info.cgst}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="newWidth">SGST (%)</td>
+                                          <td class="newWidth">₹{{this.billing_info.sgst}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="newWidth">IGST (%)</td>
+                                          <td class="newWidth">₹{{this.billing_info.igst}}</td>
+                                      </tr>
+                                      <tr>
+                                          <td class="newWidth border-bottom" colspan="2"></td>
+                                      </tr>
+                                      <tr>
+                                          <td class="newWidth">Amount</td>
+                                          <td class="newWidth">₹{{this.billing_info.amount_payable}}</td>
+                                      </tr>
+                                </tbody>
+                          </table>
+                    </td>
+              </tr>
+          </tbody>
+      </table>
+    </div> -->
+
+</section>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
