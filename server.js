@@ -28,7 +28,9 @@ if (process.env.NODE_ENV === "development") {
 } else {
   app.use(morgan("combined"));
 }
-
+app.get("/",(req,res)=>{
+  res.send("server is running success")
+})
 // v1 api routes
 app.use("/v1", routes);
 // Middleware to handle undefined routes globally
