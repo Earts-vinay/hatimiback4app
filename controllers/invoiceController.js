@@ -978,7 +978,7 @@ var mailOptions = {
     <body>
         <div class="container">
             <div class="imgLogo">
-                <img src="https://hatimi.s3.amazonaws.com/hatimiLogo.png" alt="Hatimi Retreats Logo" />
+                <img src="https://hatimi-production.s3.us-east-1.amazonaws.com/logos/hatimilogo.png" alt="Hatimi Retreats Logo" />
             </div>
             <div class="content">
                 <p>Dear ${booking.customer_info.name},<br><br>
@@ -1144,7 +1144,7 @@ async function sendManagerEmail (email,booking,attachmentFilename)  {
         <body>
             <div class="container">
                 <div class="imgLogo">
-                    <img src="https://hatimi.s3.amazonaws.com/hatimiLogo.png" alt="Hatimi Retreats Logo" />
+                    <img src="https://hatimi-production.s3.us-east-1.amazonaws.com/logos/hatimilogo.png" alt="Hatimi Retreats Logo" />
                 </div>
                 <div class="content">
                     <p>Hello,<br><br>

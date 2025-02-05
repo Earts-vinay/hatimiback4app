@@ -9,15 +9,15 @@ const path = require("path");
 
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: "AKIA2PJN3YBFCDWZA65Z",
-    secretAccessKey: "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",
+    accessKeyId: "AKIAU6GD2RGW5FBDM753",
+    secretAccessKey: "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",
   },
   region: "us-east-1",
 });
 
 const s3Storage = multerS3({
   s3,
-  bucket: "hatimi",
+  bucket: "hatimi-production",
   metadata: (req, file, cb) => {
     cb(null, { fieldname: file.fieldname, "Content-Disposition": "inline" });
   },
@@ -85,14 +85,14 @@ const updateMultipleImages = async (originalKeys, updatedFiles) => {
         throw new Error("Updated image content is empty");
       }
       const uploadParams = {
-        Bucket: "hatimi",
+        Bucket: "hatimi-production",
         Key: updatedFile.key,
         Body: updatedImageContent,
         ContentType: updatedFile.mimetype,
       };
       await s3.send(new PutObjectCommand(uploadParams));
       const deleteParams = {
-        Bucket: "hatimi",
+        Bucket: "hatimi-production",
         Key: originalKey,
       };
       await s3.send(new DeleteObjectCommand(deleteParams));
@@ -110,7 +110,7 @@ const deleteMultipleImages = async (keysToDelete) => {
   try {
     for (const keyToDelete of keysToDelete) {
       const deleteParams = {
-        Bucket: "hatimi",
+        Bucket: "hatimi-production",
         Key: keyToDelete,
       };
 
@@ -136,7 +136,7 @@ const deleteSingleImage = async (keyToDelete) => {
   try {
 
       const deleteParams = {
-        Bucket: "hatimi",
+        Bucket: "hatimi-production",
         Key: keyToDelete,
       };
 
