@@ -9,8 +9,8 @@ const path = require("path");
 
 const s3 = new S3Client({
   credentials: {
-    accessKeyId: "AKIAU6GD2RGW5FBDM753",
-    secretAccessKey: "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",
+    accessKeyId: process.env.RAZORPAY_AWS_KEY_ID,
+    secretAccessKey: process.env.RAZORPAY_AWS_KEY_Secret,
   },
   region: "us-east-1",
 });

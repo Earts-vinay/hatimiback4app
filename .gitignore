@@ -3,5 +3,5 @@ views/
 uploads/
 test.js
 
-.env
-.env_backup
+.env/
+.env_backup/
