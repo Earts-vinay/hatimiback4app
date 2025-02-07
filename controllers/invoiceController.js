@@ -85,7 +85,7 @@ function generate_payslip_pdf(booking, companyDetails) {
       // Launch Puppeteer
       const browser = await puppeteer.launch({
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
-        headless: false,
+        headless: "new",
       });
       const page = await browser.newPage();
       // Set dynamic HTML content
