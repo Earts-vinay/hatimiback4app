@@ -7,120 +7,108 @@ const moment = require("moment");
 const { Company } = require("../models/masterCompanyDetailsModel");
 const { Booking } = require("../models/bookingModel");
 const { Property } = require("../models/propertyModel");
-
-
+const handlebars = require("handlebars");
 require("dotenv").config();
 
-const pdf = require('dynamic-html-pdf');
-var html4 = fs.readFileSync(require.resolve("../downloadpdf.html"), { encoding: "utf8" });
-
+const pdf = require("dynamic-html-pdf");
+var html4 = fs.readFileSync(require.resolve("../downloadpdf.html"), {
+  encoding: "utf8",
+});
 
 function formatDate(dateString) {
-    // Parse the dateString to create a Date object
-    const [year, month, day] = dateString.split('-').map(Number);
-    const date = new Date(year, month - 1, day); // Months are zero-based in JavaScript
+  // Parse the dateString to create a Date object
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(year, month - 1, day); // Months are zero-based in JavaScript
 
-    // Format the date as dd-mm-yyyy
-    const dayFormatted = String(date.getDate()).padStart(2, '0');
-    const monthFormatted = String(date.getMonth() + 1).padStart(2, '0');
-    const yearFormatted = date.getFullYear();
+  // Format the date as dd-mm-yyyy
+  const dayFormatted = String(date.getDate()).padStart(2, "0");
+  const monthFormatted = String(date.getMonth() + 1).padStart(2, "0");
+  const yearFormatted = date.getFullYear();
 
-    return `${dayFormatted}-${monthFormatted}-${yearFormatted}`;
+  return `${dayFormatted}-${monthFormatted}-${yearFormatted}`;
 }
 
+function generate_payslip_pdf(booking, companyDetails) {
+  var net_amount =
+    booking.billing_info.total_Cost - booking.billing_info.discount;
+  const data = {
+    company_name: companyDetails.company_name,
+    cin: companyDetails.cin,
+    gstin: companyDetails.gstin,
+    hsn: companyDetails.hsn,
+    its: companyDetails.its,
+    office_address: companyDetails.office_address,
+    property_name: booking.property_name,
+    phone_number: booking.phone_number,
+    booking_id: booking.booking_id,
+    invoice_id: booking.invoice_id,
+    customer_info: booking.customer_info,
+    formateddate: booking.formateddate,
+    number_of_rooms: booking.number_of_rooms,
+    check_in: booking.check_in,
+    check_out: booking.check_out,
+    daysDifference: booking.daysDifference,
+    adults: booking.adults,
+    children: booking.children,
+    room_info: booking.room_info,
+    property_name: booking.property_name,
+    customer_info: booking.customer_info,
+    gst_data: booking.gst_data,
+    extra_services_info: booking.extra_services_info,
+    mode_of_payment: booking.mode_of_payment,
+    transaction_id: booking.transaction_id,
+    billing_info: booking.billing_info,
+    property_state: booking.property_state,
+    property_city: booking.property_city,
+    property_check_in_time: booking.property_check_in_time,
+    property_check_out_time: booking.property_check_out_time,
+    net_amount: net_amount.toFixed(2),
+  };
+  // console.log("data",data);
+  return new Promise(async function (resolve, reject) {
+    try {
+      // Read and compile Handlebars template
+      const templateHtml = fs.readFileSync(
+        "G:\\hatimi-backend\\pms-backend\\downloadpdf.html",
+        "utf8"
+      );
+      const template = handlebars.compile(templateHtml);
+      const html = template(data);
 
-function generate_payslip_pdf(booking, companyDetails){
+      const outputPath = path.join(__dirname, "../public/createinvoice/");
+      const outputFile = Date.now() + "_" + "invoice.pdf";
+      const outputFilePath = path.join(outputPath, outputFile);
 
+      var options = {
+        format: "A4",
+        orientation: "portrait",
+        printBackground: false,
+        path: outputFilePath,
+      };
+      // Launch Puppeteer
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      // Set dynamic HTML content
+      await page.setContent(html, { waitUntil: "networkidle2" });
 
-  var newObj = {
-    booking:booking,
-    companyDetails:companyDetails,
+      // Generate PDF
+      await page.pdf(options);
 
-  }
-  var net_amount = booking.billing_info.total_Cost - booking.billing_info.discount
-  // console.log("net_amount",net_amount);
-  return new Promise(function(resolve, reject) {
-
-
-    console.log("booking.room_info*************",booking.room_info);
-    var options = {
-      format: "A4",
-      orientation: "portrait",
-      printBackground: false,
-      border: "",
-      timeout:1000*60*5,
-      // phantomPath: path.resolve(__dirname,'../phantomjs-prebuilt/bin/phantomjs')
-    };
-
-    // var random_no = randomNumber(4)
-    // var stt = documents_path+emp_name+"_payslip_"+month+'-'+random_no+".pdf"
-    // var stt1 = documents_url_path+emp_name+"_payslip_"+month+'-'+random_no+".pdf"
-
-    const outputPath = path.join(__dirname, "../public/createinvoice/");
-    const outputFile = Date.now() + "_" + "invoice.pdf";
-    const outputFilePath = path.join(outputPath, outputFile);
-
-    // console.log("booking",booking);
-    var document = {
-      type: 'file',
-      template: html4,
-      context: {
-        // details: newObj,
-        // booking:booking,
-        // companyDetails:companyDetails,
-        company_name:companyDetails.company_name,
-        cin:companyDetails.cin,
-        gstin:companyDetails.gstin,
-        hsn:companyDetails.hsn,
-        its:companyDetails.its,
-        office_address:companyDetails.office_address,
-        property_name:booking.property_name,
-        phone_number:booking.phone_number,
-        booking_id:booking.booking_id,
-        invoice_id:booking.invoice_id,
-        customer_info:booking.customer_info,
-        formateddate:booking.formateddate,
-        number_of_rooms:booking.number_of_rooms,
-        check_in:booking.check_in,
-        check_out:booking.check_out,
-        daysDifference:booking.daysDifference,
-        adults:booking.adults,
-        children:booking.children,
-        room_info:booking.room_info,
-        property_name:booking.property_name,
-        customer_info:booking.customer_info,
-        gst_data:booking.gst_data,
-        extra_services_info:booking.extra_services_info,
-        mode_of_payment:booking.mode_of_payment,
-        transaction_id:booking.transaction_id,
-        billing_info:booking.billing_info,
-        property_state:booking.property_state,
-        property_city:booking.property_city,
-        property_check_in_time:booking.property_check_in_time,
-        property_check_out_time:booking.property_check_out_time,
-        net_amount:net_amount.toFixed(2),
-      },
-      path:outputFilePath
-      // path:stt
-    };
-
-    pdf.create(document, options)
-
-    .then(res => {
-      console.log("pdf generate successfully")
-      resolve(outputFile)
-
-    }).catch(error => {
-      resolve("false")
-      console.error("error",error)
-    });
+      await browser.close();
+      console.log("pdf generate successfully");
+      resolve(outputFile);
+    } catch (error) {
+      console.error("Error generating in invoice : ", error);
+      reject("false");
+    }
   });
-
 }
 
-
-exports.addInvoiceContentAndSendMail = async (booking, bookingID, bookingType) => {
-
+exports.addInvoiceContentAndSendMail = async (
+  booking,
+  bookingID,
+  bookingType
+) => {
   const companyDetails = await Company.findOne();
   const startDate = booking.check_in;
   const endDate = booking.check_out;
@@ -128,29 +116,29 @@ exports.addInvoiceContentAndSendMail = async (booking, bookingID, bookingType) =
   const endMoment = moment(endDate);
   const daysDifference = endMoment.diff(startMoment, "days");
 
-  var check_in = formatDate(booking.check_in)
-  var check_out = formatDate(booking.check_out)
+  var check_in = formatDate(booking.check_in);
+  var check_out = formatDate(booking.check_out);
 
-  var bookingdate = booking.createdAt
-  var date = bookingdate.toISOString().split("T")[0]
-  var formateddate = formatDate(date)
+  var bookingdate = booking.createdAt;
+  var date = bookingdate.toISOString().split("T")[0];
+  var formateddate = formatDate(date);
 
-
-  booking.check_in = check_in
-  booking.check_out = check_out
-  booking.formateddate = formateddate
-  booking.daysDifference = daysDifference
+  booking.check_in = check_in;
+  booking.check_out = check_out;
+  booking.formateddate = formateddate;
+  booking.daysDifference = daysDifference;
 
   // console.log("######################555555");
 
+  const oldRoomInfo = await Property.findOne({
+    property_uid: booking.property_uid,
+  });
 
-  const oldRoomInfo = await Property.findOne({property_uid: booking.property_uid});
-
-  if(oldRoomInfo){
-    booking.property_state = oldRoomInfo.property_state
-    booking.property_city = oldRoomInfo.property_city
-    booking.property_check_in_time = convertToAmPm(oldRoomInfo.check_in_time)
-    booking.property_check_out_time = convertToAmPm(oldRoomInfo.check_out_time)
+  if (oldRoomInfo) {
+    booking.property_state = oldRoomInfo.property_state;
+    booking.property_city = oldRoomInfo.property_city;
+    booking.property_check_in_time = convertToAmPm(oldRoomInfo.check_in_time);
+    booking.property_check_out_time = convertToAmPm(oldRoomInfo.check_out_time);
   }
 
   // console.log("property_state",booking.property_state);
@@ -178,64 +166,75 @@ exports.addInvoiceContentAndSendMail = async (booking, bookingID, bookingType) =
   // });
 
   const res111 = await generate_payslip_pdf(booking, companyDetails);
-    // console.log("res111", res111);
+  // console.log("res111", res111);
 
-    if (res111 !== "false") {
-      // Assuming Booking.findOneAndUpdate returns a promise
-      const newBooking = await Booking.findOneAndUpdate(
-        { _id: bookingID },
-        { pdf_file: res111 },
-        { new: true }
-      );
+  if (res111 !== "false") {
+    // Assuming Booking.findOneAndUpdate returns a promise
+    const newBooking = await Booking.findOneAndUpdate(
+      { _id: bookingID },
+      { pdf_file: res111 },
+      { new: true }
+    );
 
-      // var pdfURL = "https://server.hatimiretreats.com/pms-backend/public/createinvoice/"+res111
-      // var pdfURL = "http://10.213.229.131/pms-backend/public/createinvoice/"+res111
+    // var pdfURL = "https://server.hatimiretreats.com/pms-backend/public/createinvoice/"+res111
+    // var pdfURL = "http://10.213.229.131/pms-backend/public/createinvoice/"+res111
 
-      const outputPath = path.join(__dirname, "../public/createinvoice/");
-      const outputFile = res111;
-      const outputFilePath = path.join(outputPath, outputFile);
+    const outputPath = path.join(__dirname, "../public/createinvoice/");
+    const outputFile = res111;
+    const outputFilePath = path.join(outputPath, outputFile);
 
-      if(bookingType == 'createBooking'){
-
-        if(booking.customer_info !== undefined && booking.customer_info !== null && booking.customer_info !== ""){
-          if(booking.customer_info.email !== undefined && booking.customer_info.email !== null && booking.customer_info.email !== ""){
-
-
-            await sendEmail(booking,outputFilePath)
-          }
+    if (bookingType == "createBooking") {
+      if (
+        booking.customer_info !== undefined &&
+        booking.customer_info !== null &&
+        booking.customer_info !== ""
+      ) {
+        if (
+          booking.customer_info.email !== undefined &&
+          booking.customer_info.email !== null &&
+          booking.customer_info.email !== ""
+        ) {
+          await sendEmail(booking, outputFilePath);
         }
-        await sendManagerEmail("accounts@hatimiretreats.com",booking,outputFilePath)
-        await sendManagerEmail("hsavai.estate@gmail.com",booking,outputFilePath)
-        await sendManagerEmail("info@hatimiretreats.com",booking,outputFilePath)
-        // await sendManagerEmail("tejaswitashrivastava18@gmail.com",booking,outputFilePath)
       }
-
-
-      return res111;
-
-
-      // Optionally send a response or handle newBooking
-      // res.send({status: true, message: "PDF generated successfully", path: res111});
-    } else {
-
-      var nothing = ""
-      return nothing;
-      // Optionally send a response or handle error
-      // res.send({status: false, message: "PDF not generated successfully", path: ""});
+      await sendManagerEmail(
+        "accounts@hatimiretreats.com",
+        booking,
+        outputFilePath
+      );
+      await sendManagerEmail(
+        "hsavai.estate@gmail.com",
+        booking,
+        outputFilePath
+      );
+      await sendManagerEmail(
+        "info@hatimiretreats.com",
+        booking,
+        outputFilePath
+      );
+      // await sendManagerEmail("tejaswitashrivastava18@gmail.com",booking,outputFilePath)
     }
 
-}
+    return res111;
 
-
+    // Optionally send a response or handle newBooking
+    // res.send({status: true, message: "PDF generated successfully", path: res111});
+  } else {
+    var nothing = "";
+    return nothing;
+    // Optionally send a response or handle error
+    // res.send({status: false, message: "PDF not generated successfully", path: ""});
+  }
+};
 
 function convertToAmPm(time) {
   // Split the time string into hours and minutes
-  const [hourString, minuteString] = time.split(':');
+  const [hourString, minuteString] = time.split(":");
   const hours = parseInt(hourString, 10);
   const minutes = parseInt(minuteString, 10);
 
   // Determine AM or PM suffix
-  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const ampm = hours >= 12 ? "PM" : "AM";
 
   // Convert hours from 24-hour to 12-hour format
   const hours12 = hours % 12 || 12; // Converts '0' to '12' for midnight
@@ -899,14 +898,12 @@ function convertToAmPm(time) {
 //   }
 // };
 
-
-async function sendEmail (booking,attachmentFilename)  {
+async function sendEmail(booking, attachmentFilename) {
   if (booking.customer_info.email) {
-
     const transporter = nodemailer.createTransport({
       // host: process.env.SMTP_HOST,
       // port: process.env.SMTP_PORT,
-      service: 'gmail',
+      service: "gmail",
       secure: true, // true for 465, false for other ports
       auth: {
         user: process.env.EMAIL_USER,
@@ -916,36 +913,36 @@ async function sendEmail (booking,attachmentFilename)  {
 
     // console.log("booking.booking_status",booking.booking_status);
 
-//     var mailOptions = {
-//       from:'HatimiRetreats<backend@hatimiretreats.com>',
-//       to: booking.customer_info.email,
-//       subject: "Thank You for Choosing Hatimi Retreats",
-//       text: `Dear ${booking.customer_info.name},
-//
-// Thank you for booking with us! We're excited to welcome you to Hatimi Retreats.
-//
-// Here are your booking details:
-//
-// Reservation ID: ${booking.booking_id}
-// Check-in: ${booking.check_in}
-// Check-out: ${booking.check_out}
-// Attached is your invoice for your reference.
-//
-// If you have any questions or special requests, feel free to reach out.
-//
-// We can't wait to make your stay memorable!.
-//
-// Thanks & Regards
-// Hatimi Retreats,
-// Contact: 7506305353`,
-//
-//     };
+    //     var mailOptions = {
+    //       from:'HatimiRetreats<backend@hatimiretreats.com>',
+    //       to: booking.customer_info.email,
+    //       subject: "Thank You for Choosing Hatimi Retreats",
+    //       text: `Dear ${booking.customer_info.name},
+    //
+    // Thank you for booking with us! We're excited to welcome you to Hatimi Retreats.
+    //
+    // Here are your booking details:
+    //
+    // Reservation ID: ${booking.booking_id}
+    // Check-in: ${booking.check_in}
+    // Check-out: ${booking.check_out}
+    // Attached is your invoice for your reference.
+    //
+    // If you have any questions or special requests, feel free to reach out.
+    //
+    // We can't wait to make your stay memorable!.
+    //
+    // Thanks & Regards
+    // Hatimi Retreats,
+    // Contact: 7506305353`,
+    //
+    //     };
 
-var mailOptions = {
-    from: 'Hatimi Retreats <mailto:backend@hatimiretreats.com>',
-    to: booking.customer_info.email,
-    subject: "Thank You for Choosing Hatimi Retreats",
-    html: `
+    var mailOptions = {
+      from: "Hatimi Retreats <mailto:backend@hatimiretreats.com>",
+      to: booking.customer_info.email,
+      subject: "Thank You for Choosing Hatimi Retreats",
+      html: `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -998,83 +995,81 @@ var mailOptions = {
     </body>
     </html>
     `,
-};
+    };
 
-
-    if(booking.booking_status !== 'blocked'){
+    if (booking.booking_status !== "blocked") {
       mailOptions.attachments = [
         {
           filename: "invoice.pdf",
           contentType: "application/pdf",
           path: attachmentFilename,
         },
-      ]
+      ];
     }
 
-
-  //   if(booking.booking_status == 'blocked'){
-  //     var mailOptions = {
-  //       from:'HatimiRetreats<backend@hatimiretreats.com>',
-  //       to: booking.customer_info.email,
-  //       subject: "Thank You for Choosing Hatimi Retreats",
-  //       text: `Dear ${booking.customer_info.name},
-  //
-  // Thank you for booking with us! We're excited to welcome you to Hatimi Retreats.
-  //
-  // Here are your booking details:
-  //
-  // Reservation ID: ${booking.booking_id}
-  // Check-in: ${booking.check_in}
-  // Check-out: ${booking.check_out}
-  // Attached is your invoice for your reference.
-  //
-  // If you have any questions or special requests, feel free to reach out.
-  //
-  // We can't wait to make your stay memorable!.
-  //
-  // Thanks & Regards
-  // Hatimi Retreats,
-  // Contact: 7506305353`,
-  //       // attachments: [
-  //       //   {
-  //       //     filename: "invoice.pdf",
-  //       //     contentType: "application/pdf",
-  //       //     path: attachmentFilename,
-  //       //   },
-  //       // ],
-  //     };
-  //   }else{
-  //     var mailOptions = {
-  //       from:'HatimiRetreats<backend@hatimiretreats.com>',
-  //       to: booking.customer_info.email,
-  //       subject: "Thank You for Choosing Hatimi Retreats",
-  //       text: `Dear ${booking.customer_info.name},
-  //
-  // Thank you for booking with us! We're excited to welcome you to Hatimi Retreats.
-  //
-  // Here are your booking details:
-  //
-  // Reservation ID: ${booking.booking_id}
-  // Check-in: ${booking.check_in}
-  // Check-out: ${booking.check_out}
-  // Attached is your invoice for your reference.
-  //
-  // If you have any questions or special requests, feel free to reach out.
-  //
-  // We can't wait to make your stay memorable!.
-  //
-  // Thanks & Regards
-  // Hatimi Retreats,
-  // Contact: 7506305353`,
-  //       attachments: [
-  //         {
-  //           filename: "invoice.pdf",
-  //           contentType: "application/pdf",
-  //           path: attachmentFilename,
-  //         },
-  //       ],
-  //     };
-  //   }
+    //   if(booking.booking_status == 'blocked'){
+    //     var mailOptions = {
+    //       from:'HatimiRetreats<backend@hatimiretreats.com>',
+    //       to: booking.customer_info.email,
+    //       subject: "Thank You for Choosing Hatimi Retreats",
+    //       text: `Dear ${booking.customer_info.name},
+    //
+    // Thank you for booking with us! We're excited to welcome you to Hatimi Retreats.
+    //
+    // Here are your booking details:
+    //
+    // Reservation ID: ${booking.booking_id}
+    // Check-in: ${booking.check_in}
+    // Check-out: ${booking.check_out}
+    // Attached is your invoice for your reference.
+    //
+    // If you have any questions or special requests, feel free to reach out.
+    //
+    // We can't wait to make your stay memorable!.
+    //
+    // Thanks & Regards
+    // Hatimi Retreats,
+    // Contact: 7506305353`,
+    //       // attachments: [
+    //       //   {
+    //       //     filename: "invoice.pdf",
+    //       //     contentType: "application/pdf",
+    //       //     path: attachmentFilename,
+    //       //   },
+    //       // ],
+    //     };
+    //   }else{
+    //     var mailOptions = {
+    //       from:'HatimiRetreats<backend@hatimiretreats.com>',
+    //       to: booking.customer_info.email,
+    //       subject: "Thank You for Choosing Hatimi Retreats",
+    //       text: `Dear ${booking.customer_info.name},
+    //
+    // Thank you for booking with us! We're excited to welcome you to Hatimi Retreats.
+    //
+    // Here are your booking details:
+    //
+    // Reservation ID: ${booking.booking_id}
+    // Check-in: ${booking.check_in}
+    // Check-out: ${booking.check_out}
+    // Attached is your invoice for your reference.
+    //
+    // If you have any questions or special requests, feel free to reach out.
+    //
+    // We can't wait to make your stay memorable!.
+    //
+    // Thanks & Regards
+    // Hatimi Retreats,
+    // Contact: 7506305353`,
+    //       attachments: [
+    //         {
+    //           filename: "invoice.pdf",
+    //           contentType: "application/pdf",
+    //           path: attachmentFilename,
+    //         },
+    //       ],
+    //     };
+    //   }
 
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
@@ -1083,36 +1078,34 @@ var mailOptions = {
       console.log("Email sent successfully:", info.response);
     });
   }
-};
+}
 
-
-async function sendManagerEmail (email,booking,attachmentFilename)  {
+async function sendManagerEmail(email, booking, attachmentFilename) {
   // if (booking.customer_info.email) {
 
-
-  var type = booking.room_info
-  var typearray = []
-  if(type.length > 0){
-    for(let i=0;i<type.length;i++){
-      typearray.push(type[i].room_type)
+  var type = booking.room_info;
+  var typearray = [];
+  if (type.length > 0) {
+    for (let i = 0; i < type.length; i++) {
+      typearray.push(type[i].room_type);
     }
   }
 
-    const transporter = nodemailer.createTransport({
-      // host: process.env.SMTP_HOST,
-      // port: process.env.SMTP_PORT,
-      service: 'gmail',
-      secure: true, // true for 465, false for other ports
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-    const mailOptions = {
-      from:'HatimiRetreats<backend@hatimiretreats.com>',
-      to: email,
-      subject: "Booking Details Of Customer",
-      html:`<!DOCTYPE html>
+  const transporter = nodemailer.createTransport({
+    // host: process.env.SMTP_HOST,
+    // port: process.env.SMTP_PORT,
+    service: "gmail",
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+  const mailOptions = {
+    from: "HatimiRetreats<backend@hatimiretreats.com>",
+    to: email,
+    subject: "Booking Details Of Customer",
+    html: `<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
@@ -1165,37 +1158,37 @@ async function sendManagerEmail (email,booking,attachmentFilename)  {
             </div>
         </body>
         </html>`,
-//       text: `Hello,
-//
-// We are excited to inform you that a new booking has been made for one of your property.
-// Here are the details of the booking:
-//
-// Customer Name: ${booking.customer_info.name}
-// Check_in: ${booking.check_in}
-// Check_out:${booking.check_out}
-// Rooms_book:${type.length}
-// Room Type: ${typearray}
-// Property: ${booking.property_name}
-//
-// Thank you,
-// Hatimi Retreats Booking System`,
-      attachments: [
-        {
-          filename: "invoice.pdf",
-          contentType: "application/pdf",
-          path: attachmentFilename,
-        },
-      ],
-    };
+    //       text: `Hello,
+    //
+    // We are excited to inform you that a new booking has been made for one of your property.
+    // Here are the details of the booking:
+    //
+    // Customer Name: ${booking.customer_info.name}
+    // Check_in: ${booking.check_in}
+    // Check_out:${booking.check_out}
+    // Rooms_book:${type.length}
+    // Room Type: ${typearray}
+    // Property: ${booking.property_name}
+    //
+    // Thank you,
+    // Hatimi Retreats Booking System`,
+    attachments: [
+      {
+        filename: "invoice.pdf",
+        contentType: "application/pdf",
+        path: attachmentFilename,
+      },
+    ],
+  };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return console.error("Error sending email:", error);
-      }
-      console.log("Email sent successfully:", info.response);
-    });
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.error("Error sending email:", error);
+    }
+    console.log("Email sent successfully:", info.response);
+  });
   // }
-};
+}
 
 //
 // exports.sendEmail = async (booking, attachmentFilename) => {
@@ -1252,14 +1245,11 @@ async function sendManagerEmail (email,booking,attachmentFilename)  {
 exports.updatedInvoice = async (booking) => {
   // console.log("booking invoice",booking);
   if (booking !== undefined && booking !== null && booking !== "") {
-
-
     // console.log('booking=====',booking);
     // Launch a headless browser
     const startDate = booking.check_in;
     const endDate = booking.check_out;
     const companyDetails = await Company.findOne();
-
 
     // Calculate the difference in days
     const startMoment = moment(startDate);
@@ -1272,24 +1262,29 @@ exports.updatedInvoice = async (booking) => {
       args: ["--no-sandbox"],
     }); // Create a new page
 
-    var check_in = formatDate(booking.check_in)
-    var check_out = formatDate(booking.check_out)
+    var check_in = formatDate(booking.check_in);
+    var check_out = formatDate(booking.check_out);
 
-    var bookingdate = booking.createdAt
-    var date = bookingdate.toISOString().split("T")[0]
-    var formateddate = formatDate(date)
+    var bookingdate = booking.createdAt;
+    var date = bookingdate.toISOString().split("T")[0];
+    var formateddate = formatDate(date);
 
-        if(booking.mode_of_payment == undefined || booking.mode_of_payment == null){
-          booking.mode_of_payment = ""
-        }
+    if (
+      booking.mode_of_payment == undefined ||
+      booking.mode_of_payment == null
+    ) {
+      booking.mode_of_payment = "";
+    }
 
+    if (booking.transaction_id == undefined || booking.transaction_id == null) {
+      booking.transaction_id = "";
+    }
 
-        if(booking.transaction_id == undefined || booking.transaction_id == null){
-          booking.transaction_id = ""
-        }
-
-
-    if(booking.customer_info == undefined || booking.customer_info == null || booking.customer_info == ""){
+    if (
+      booking.customer_info == undefined ||
+      booking.customer_info == null ||
+      booking.customer_info == ""
+    ) {
       var invoiceHTML = `<!DOCTYPE html>
   <html lang="en">
 
@@ -1312,8 +1307,8 @@ exports.updatedInvoice = async (booking) => {
                       <p class="m-0">Fort Mumbai, 400001.</p>
                       <p class="m-0">Contact - +91 9820834976</p>
                       <p class="m-0">${booking.property_name} - ${
-    booking.phone_number
-  }</p>
+        booking.phone_number
+      }</p>
                   </div>
               </div>
               <div class="col-6 d-flex align-items-end">
@@ -1435,8 +1430,8 @@ exports.updatedInvoice = async (booking) => {
                   </div>
                   <div class="col-6">
                       <p>${booking.adults} Adults | ${
-    booking.children
-  } Childrens </p>
+        booking.children
+      } Childrens </p>
                   </div>
                       </div>
                   </div>
@@ -1565,9 +1560,7 @@ exports.updatedInvoice = async (booking) => {
                           <h6>Amount</h6>
                       </div>
                       <div class="col-3 d-flex justify-content-end">
-                          <h6> ₹${
-                            booking.billing_info?.amount_payable
-                          }.00</h6>
+                          <h6> ₹${booking.billing_info?.amount_payable}.00</h6>
                       </div>
 
                   </div>
@@ -1587,7 +1580,7 @@ exports.updatedInvoice = async (booking) => {
   </body>
 
   </html>`;
-    }else{
+    } else {
       var invoiceHTML = `<!DOCTYPE html>
     <html lang="en">
 
@@ -1610,8 +1603,8 @@ exports.updatedInvoice = async (booking) => {
                         <p class="m-0">Fort Mumbai, 400001.</p>
                         <p class="m-0">Contact - +91 9820834976</p>
                         <p class="m-0">${booking.property_name} - ${
-      booking.phone_number
-    }</p>
+        booking.phone_number
+      }</p>
                     </div>
                 </div>
                 <div class="col-6 d-flex align-items-end">
@@ -1735,8 +1728,8 @@ exports.updatedInvoice = async (booking) => {
                     </div>
                     <div class="col-6">
                         <p>${booking.adults} Adults | ${
-      booking.children
-    } Childrens </p>
+        booking.children
+      } Childrens </p>
                     </div>
                         </div>
                     </div>
@@ -1905,7 +1898,6 @@ exports.updatedInvoice = async (booking) => {
     // Close the browser
     await browser.close();
 
-
     //Remove the temporary file
     // fs.unlink(outputFilePath, (err) => {
     //   if (err) {
@@ -1915,7 +1907,6 @@ exports.updatedInvoice = async (booking) => {
     //   }
     // });
 
-
-    return outputFilePath
+    return outputFilePath;
   }
 };

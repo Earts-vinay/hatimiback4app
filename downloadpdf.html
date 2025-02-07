@@ -35,23 +35,23 @@
         width: 100%
       }
       .width40{
-        width: 48%
+        width: 48%;
       }
       .width50{
         /* width: 45%; */
-      font-size: 9px;
+      font-size: 14px;
       padding-top: 1px;
       padding-bottom: 0px;
       }
       .newWidth{
         width: 45%;
-        font-size: 8px;
+        font-size: 1px;
         padding-top: 3px;
     padding-bottom: 3px
       }
       .mb-10{
         margin-bottom: 10px;
-      font-size: 9px;
+      font-size: 16px;
       width: fit-content;
       text-decoration: underline;
       font-weight: 500 !important;
@@ -70,20 +70,20 @@
         border: 1px solid #dee2e6;
       }
       p{
-        font-size: 8px !important
+        font-size: 12px !important
       }
       .roomDeatilsTable th{
-        font-size: 8px;
+        font-size: 12px;
         font-weight: 500;
       }
       .roomDeatilsTable td{
-        font-size: 8px
+        font-size: 14px
       }
       .font10{
-        font-size: 9px
+        font-size: 16px
       }
       .heading{
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 500;
         margin-bottom: 10px;
         text-align: center;
@@ -123,7 +123,7 @@
       padding: 30px
     }
     .thankSection{
-      font-size: 10px !important;
+      font-size: 12px !important;
     font-weight: 500;
     margin-bottom: 7px;
     }
@@ -134,7 +134,7 @@
       font-weight: 500
     }
     .paymentInfo{
-      font-size: 9px;
+      font-size: 16px;
       width: fit-content;
       text-decoration: underline;
       font-weight: 500 !important;
@@ -163,15 +163,15 @@
       vertical-align: top !important;
     }
     .ComapnyName{
-      font-size: 11px;
+      font-size: 18px;
     margin-bottom: 10px;
     text-transform: capitalize;
     }
     .supportData{
-      font-size: 8px
+      font-size: 12px
     }
     .SuppoertHeading{
-      font-size: 10px;
+      font-size: 14px;
     font-weight: 500;
     margin-bottom: 2px;
     }
@@ -223,17 +223,17 @@
                 <tr>
                   <td colspan="2">
                     <div class="invoice mb-1">
-                      <h2 class="ComapnyName textType">{{this.company_name}}</h2>
+                      <h2 class="ComapnyName textType">{{company_name}}</h2>
                     </div>
                   </td>
                   </tr>
                   <!-- <tr>
                     <td class="width50 FontWei500">Invoice No</td>
-                    <td class="width50">{{this.booking_id}}</td>
+                    <td class="width50">{{booking_id}}</td>
                   </tr> -->
                   <tr>
                     <td class="width50 FontWei500">CIN</td>
-                    <td class="width50">{{this.cin}}</td>
+                    <td class="width50">{{cin}}</td>
                   </tr>
                   <tr>
                     <td class="width50 FontWei500">Address</td>
@@ -244,20 +244,20 @@
                     <td class="width50">+91 9820834976</td>
                   </tr> -->
                   <!-- <tr>
-                    <td class="width50 FontWei500">{{this.property_name}}</td>
-                    <td class="width50">{{this.phone_number}}</td>
+                    <td class="width50 FontWei500">{{property_name}}</td>
+                    <td class="width50">{{phone_number}}</td>
                   </tr> -->
                   <tr>
                     <td class="width50 FontWei500">GST No.</td>
-                    <td class="width50">{{this.gstin}}</td>
+                    <td class="width50">{{gstin}}</td>
                   </tr>
                   <tr>
                     <td class="width50 FontWei500">HSN Code</td>
-                    <td class="width50">{{this.hsn}}</td>
+                    <td class="width50">{{hsn}}</td>
                   </tr>
                   <tr>
                     <td class="width50 FontWei500">Place of Supply</td>
-                    <td class="width50 textType">{{this.property_state}}</td>
+                    <td class="width50 textType">{{property_state}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -287,31 +287,31 @@
 
                               <tr>
                                   <td class="width50 FontWei500 padd15">ITS</td>
-                                  <td class="width50">{{this.customer_info.itsID}}</td>
+                                  <td class="width50">{{customer_info.itsID}}</td>
                               </tr>
                               <tr>
                                 <td class="width50 FontWei500 padd15">Company Name</td>
-                                <td class="width50">{{ this.customer_info.company_name}}</td>
+                                <td class="width50">{{ customer_info.company_name}}</td>
                               </tr>
                               <tr>
                                 <td class="width50 FontWei500 padd15">Company GST</td>
-                                <td class="width50">{{ this.customer_info.company_gst}}</td>
+                                <td class="width50">{{ customer_info.company_gst}}</td>
                               </tr>
                               <tr>
                                   <td class="width50 FontWei500 padd15">Name</td>
-                                  <td class="width50 textType">{{this.customer_info.name}}</td>
+                                  <td class="width50 textType">{{customer_info.name}}</td>
                               </tr>
                               <tr>
                                   <td class="width50 FontWei500 padd15">Address</td>
-                                  <td class="width50 textType">{{this.customer_info.address}}</td>
+                                  <td class="width50 textType">{{customer_info.address}}</td>
                               </tr>
                               <tr>
                                   <td class="width50 FontWei500 padd15">Email Id</td>
-                                  <td class="width50 textType">{{this.customer_info.email}}</td>
+                                  <td class="width50 textType">{{customer_info.email}}</td>
                               </tr>
                               <tr>
                                   <td class="width50 FontWei500 padd15">Contact No.</td>
-                                  <td class="width50 textType">{{this.customer_info.mobile_number}}</td>
+                                  <td class="width50 textType">{{customer_info.mobile_number}}</td>
                               </tr>
                         </tbody>
                   </table>
@@ -322,39 +322,39 @@
                             <tbody>
                               <tr>
                                 <td class="width50 FontWei500">Invoice No</td>
-                                <td class="width50">{{this.invoice_id}}</td>
+                                <td class="width50">{{invoice_id}}</td>
                               </tr>
                                   <tr>
                                       <td class="width50 FontWei500">Property Name</td>
-                                      <td class="width50 textType">{{this.property_city}} {{this.property_name}}</td>
+                                      <td class="width50 textType">{{property_city}} {{property_name}}</td>
                                   </tr>
                                   <tr>
                                       <td class="width50 FontWei500">Booking date</td>
-                                      <td class="width50 textType">{{this.formateddate}}</td>
+                                      <td class="width50 textType">{{formateddate}}</td>
                                   </tr>
                                   <tr>
                                       <td class="width50 FontWei500">Booking ID</td>
-                                      <td class="width50">{{this.booking_id}}</td>
+                                      <td class="width50">{{booking_id}}</td>
                                   </tr>
                                   <tr>
                                       <td class="width50 FontWei500">No of Rooms</td>
-                                      <td class="width50">{{this.number_of_rooms}}</td>
+                                      <td class="width50">{{number_of_rooms}}</td>
                                   </tr>
                                   <tr>
                                       <td class="width50 FontWei500">Check In Date</td>
-                                      <td class="width50">{{this.check_in}} | {{this.property_check_in_time}}</td>
+                                      <td class="width50">{{check_in}} | {{property_check_in_time}}</td>
                                   </tr>
                                   <tr>
                                       <td class="width50 FontWei500">Check out Date</td>
-                                      <td class="width50">{{this.check_out}} | {{this.property_check_out_time}}</td>
+                                      <td class="width50">{{check_out}} | {{property_check_out_time}}</td>
                                   </tr>
                                   <tr>
                                     <td class="width50 FontWei500">Stay</td>
-                                    <td class="width50 textType">{{this.daysDifference}} Night</td>
+                                    <td class="width50 textType">{{daysDifference}} Night</td>
                                 </tr>
                                   <tr>
                                       <td class="width50 FontWei500">No of Persons</td>
-                                      <td class="width50">{{this.adults}} Persons</td>
+                                      <td class="width50">{{adults}} Persons</td>
                                   </tr>
 
                             </tbody>
@@ -411,8 +411,8 @@
                   </div>
                   {{/each}}
                 </td>
-                <!-- <td>₹{{this.room_price_new}}</td> -->
-                <td>{{this.daysDifference}} Night</td>
+                <!-- <td>₹{{room_price_new}}</td> -->
+                <td>{{daysDifference}} Night</td>
                 <td class="textEnd">
                   ₹{{room_price}}
                   {{#each extra_services}}
@@ -432,15 +432,15 @@
                       </tr>
                           <tr>
                               <td class="FontWei500" style="width:30%">Name</td>
-                              <td >{{this.customer_info.name}}</td>
+                              <td >{{customer_info.name}}</td>
                           </tr>
                           <tr>
                               <td class="FontWei500" style="width:30%">Mode of payment</td>
-                              <td style="text-transform : capitalize">{{this.mode_of_payment}}</td>
+                              <td style="text-transform : capitalize">{{mode_of_payment}}</td>
                           </tr>
                           <tr>
                               <td class="FontWei500" style="width:30%">Transaction ID</td>
-                              <td>{{this.transaction_id}}</td>
+                              <td>{{transaction_id}}</td>
                           </tr>
                     </tbody>
                   </table>
@@ -451,34 +451,34 @@
 
                             <tr>
                                 <td class="newWidth">Amount</td>
-                                <td class="newWidth textEnd" >₹{{this.billing_info.total_Cost}}</td>
+                                <td class="newWidth textEnd" >₹{{billing_info.total_Cost}}</td>
                             </tr>
-                            {{#if this.billing_info.discount}}
+                            {{#if billing_info.discount}}
                             <tr>
                                 <td class="newWidth">Discount</td>
-                                <td class="newWidth textEnd">₹{{this.billing_info.discount}}</td>
+                                <td class="newWidth textEnd">₹{{billing_info.discount}}</td>
                             </tr>
                             {{/if}}
                             <tr>
                                 <td class="newWidth">Net Amount</td>
-                                <td class="newWidth textEnd">₹{{this.net_amount}}</td>
+                                <td class="newWidth textEnd">₹{{net_amount}}</td>
                             </tr>
-                            {{#if this.gst_data.cgst_percent}}
+                            {{#if gst_data.cgst_percent}}
                             <tr>
-                                <td class="newWidth">CGST @ {{this.gst_data.cgst_percent}}%</td>
-                                <td class="newWidth textEnd">₹{{this.billing_info.cgst}}</td>
-                            </tr>
-                            {{/if}}
-                            {{#if this.gst_data.sgst_percent}}
-                            <tr>
-                                <td class="newWidth">SGST @ {{this.gst_data.sgst_percent}}%</td>
-                                <td class="newWidth textEnd">₹{{this.billing_info.sgst}}</td>
+                                <td class="newWidth">CGST @ {{gst_data.cgst_percent}}%</td>
+                                <td class="newWidth textEnd">₹{{billing_info.cgst}}</td>
                             </tr>
                             {{/if}}
-                            {{#if this.gst_data.igst_percent}}
+                            {{#if gst_data.sgst_percent}}
                             <tr>
-                                <td class="newWidth">IGST @ {{this.gst_data.igst_percent}}%</td>
-                                <td class="newWidth textEnd">₹{{this.billing_info.igst}}</td>
+                                <td class="newWidth">SGST @ {{gst_data.sgst_percent}}%</td>
+                                <td class="newWidth textEnd">₹{{billing_info.sgst}}</td>
+                            </tr>
+                            {{/if}}
+                            {{#if gst_data.igst_percent}}
+                            <tr>
+                                <td class="newWidth">IGST @ {{gst_data.igst_percent}}%</td>
+                                <td class="newWidth textEnd">₹{{billing_info.igst}}</td>
                             </tr>
                             {{/if}}
                             <tr>
@@ -486,7 +486,7 @@
                             </tr>
                             <tr class="lastAmount">
                                 <td class="newWidth" >Amount Paid</td>
-                                <td class="newWidth textEnd">₹{{this.billing_info.amount_payable}}</td>
+                                <td class="newWidth textEnd">₹{{billing_info.amount_payable}}</td>
                             </tr>
                       </tbody>
                 </table>
@@ -515,12 +515,12 @@
             <tbody>
             {{#each extra_services_info}}
                   <tr>
-                  <td>{{this.index}}</td>
-                  <td>{{this.service_name}}</td>
-                  <td>{{this.service_count}}</td>
-                  <td>₹{{this.single_service_price}}/Night</td>
-                  <td>{{this.daysDifference}} Night</td>
-                  <td class="textEnd">₹{{this.service_price}}</td>
+                  <td>{{index}}</td>
+                  <td>{{service_name}}</td>
+                  <td>{{service_count}}</td>
+                  <td>₹{{single_service_price}}/Night</td>
+                  <td>{{daysDifference}} Night</td>
+                  <td class="textEnd">₹{{service_price}}</td>
                 </tr>
             {{/each}}
             <tr>
@@ -532,15 +532,15 @@
                         </tr>
                             <tr>
                                 <td class="FontWei500" style="width:30%">Name</td>
-                                <td >{{this.customer_info.name}}</td>
+                                <td >{{customer_info.name}}</td>
                             </tr>
                             <tr>
                                 <td class="FontWei500" style="width:30%">Mode of payment</td>
-                                <td style="text-transform : capitalize">{{this.mode_of_payment}}</td>
+                                <td style="text-transform : capitalize">{{mode_of_payment}}</td>
                             </tr>
                             <tr>
                                 <td class="FontWei500" style="width:30%">Transaction ID</td>
-                                <td>{{this.transaction_id}}</td>
+                                <td>{{transaction_id}}</td>
                             </tr>
                       </tbody>
                     </table>
@@ -551,34 +551,34 @@
 
                               <tr>
                                   <td class="newWidth">Amount</td>
-                                  <td class="newWidth textEnd" >₹{{this.billing_info.total_Cost}}</td>
+                                  <td class="newWidth textEnd" >₹{{billing_info.total_Cost}}</td>
                               </tr>
-                              {{#if this.billing_info.discount}}
+                              {{#if billing_info.discount}}
                               <tr>
                                   <td class="newWidth">Discount</td>
-                                  <td class="newWidth textEnd">₹{{this.billing_info.discount}}</td>
+                                  <td class="newWidth textEnd">₹{{billing_info.discount}}</td>
                               </tr>
                               {{/if}}
                               <tr>
                                   <td class="newWidth">Net Amount</td>
-                                  <td class="newWidth textEnd">₹{{this.net_amount}}</td>
+                                  <td class="newWidth textEnd">₹{{net_amount}}</td>
                               </tr>
-                              {{#if this.gst_data.cgst_percent}}
+                              {{#if gst_data.cgst_percent}}
                               <tr>
-                                  <td class="newWidth">CGST @ {{this.gst_data.cgst_percent}}%</td>
-                                  <td class="newWidth textEnd">₹{{this.billing_info.cgst}}</td>
-                              </tr>
-                              {{/if}}
-                              {{#if this.gst_data.sgst_percent}}
-                              <tr>
-                                  <td class="newWidth">SGST @ {{this.gst_data.sgst_percent}}%</td>
-                                  <td class="newWidth textEnd">₹{{this.billing_info.sgst}}</td>
+                                  <td class="newWidth">CGST @ {{gst_data.cgst_percent}}%</td>
+                                  <td class="newWidth textEnd">₹{{billing_info.cgst}}</td>
                               </tr>
                               {{/if}}
-                              {{#if this.gst_data.igst_percent}}
+                              {{#if gst_data.sgst_percent}}
                               <tr>
-                                  <td class="newWidth">IGST @ {{this.gst_data.igst_percent}}%</td>
-                                  <td class="newWidth textEnd">₹{{this.billing_info.igst}}</td>
+                                  <td class="newWidth">SGST @ {{gst_data.sgst_percent}}%</td>
+                                  <td class="newWidth textEnd">₹{{billing_info.sgst}}</td>
+                              </tr>
+                              {{/if}}
+                              {{#if gst_data.igst_percent}}
+                              <tr>
+                                  <td class="newWidth">IGST @ {{gst_data.igst_percent}}%</td>
+                                  <td class="newWidth textEnd">₹{{billing_info.igst}}</td>
                               </tr>
                               {{/if}}
                               <tr>
@@ -586,7 +586,7 @@
                               </tr>
                               <tr class="lastAmount">
                                   <td class="newWidth" >Amount Paid</td>
-                                  <td class="newWidth textEnd">₹{{this.billing_info.amount_payable}}</td>
+                                  <td class="newWidth textEnd">₹{{billing_info.amount_payable}}</td>
                               </tr>
                         </tbody>
                   </table>
@@ -620,15 +620,15 @@
 
                                   <tr>
                                       <td class="newWidth">Name</td>
-                                      <td class="newWidth">{{this.customer_info.name}}</td>
+                                      <td class="newWidth">{{customer_info.name}}</td>
                                   </tr>
                                   <tr>
                                       <td class="newWidth">Mode of payment</td>
-                                      <td class="newWidth">{{this.mode_of_payment}}</td>
+                                      <td class="newWidth">{{mode_of_payment}}</td>
                                   </tr>
                                   <tr>
                                       <td class="newWidth">Transaction ID</td>
-                                      <td class="newWidth">{{this.transaction_id}}</td>
+                                      <td class="newWidth">{{transaction_id}}</td>
                                   </tr>
                             </tbody>
                       </table>
@@ -640,30 +640,30 @@
 
                                       <tr>
                                           <td class="newWidth">Amount</td>
-                                          <td class="newWidth">₹{{this.billing_info.total_Cost}}</td>
+                                          <td class="newWidth">₹{{billing_info.total_Cost}}</td>
                                       </tr>
                                       <tr>
                                           <td class="newWidth">Discount</td>
-                                          <td class="newWidth">₹{{this.billing_info.discount}}</td>
+                                          <td class="newWidth">₹{{billing_info.discount}}</td>
                                       </tr>
                                       <tr>
                                           <td class="newWidth">CGST (%)</td>
-                                          <td class="newWidth">₹{{this.billing_info.cgst}}</td>
+                                          <td class="newWidth">₹{{billing_info.cgst}}</td>
                                       </tr>
                                       <tr>
                                           <td class="newWidth">SGST (%)</td>
-                                          <td class="newWidth">₹{{this.billing_info.sgst}}</td>
+                                          <td class="newWidth">₹{{billing_info.sgst}}</td>
                                       </tr>
                                       <tr>
                                           <td class="newWidth">IGST (%)</td>
-                                          <td class="newWidth">₹{{this.billing_info.igst}}</td>
+                                          <td class="newWidth">₹{{billing_info.igst}}</td>
                                       </tr>
                                       <tr>
                                           <td class="newWidth border-bottom" colspan="2"></td>
                                       </tr>
                                       <tr>
                                           <td class="newWidth">Amount</td>
-                                          <td class="newWidth">₹{{this.billing_info.amount_payable}}</td>
+                                          <td class="newWidth">₹{{billing_info.amount_payable}}</td>
                                       </tr>
                                 </tbody>
                           </table>

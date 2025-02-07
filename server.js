@@ -114,7 +114,7 @@ cron.schedule("0 0 */1 * * *", function() {
   var uploadsDir =  '/public/reports';
 
   fs.readdir(uploadsDir, function(err, files) {
-    files.forEach(function(file, index) {
+    files?.forEach(function(file, index) {
       fs.stat(path.join(uploadsDir, file), function(err, stat) {
         var endTime, now;
         if (err) {
