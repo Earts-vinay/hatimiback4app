@@ -68,10 +68,7 @@ function generate_payslip_pdf(booking, companyDetails) {
   return new Promise(async function (resolve, reject) {
     try {
       // Read and compile Handlebars template
-      const templateHtml = fs.readFileSync(
-        "downloadpdf.html",
-        "utf8"
-      );
+      const templateHtml = fs.readFileSync("downloadpdf.html", "utf8");
       const template = handlebars.compile(templateHtml);
       const html = template(data);
 
@@ -86,7 +83,10 @@ function generate_payslip_pdf(booking, companyDetails) {
         path: outputFilePath,
       };
       // Launch Puppeteer
-      const browser = await puppeteer.launch();
+      const browser = await puppeteer.launch({
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        headless: false,
+      });
       const page = await browser.newPage();
       // Set dynamic HTML content
       await page.setContent(html, { waitUntil: "networkidle2" });
