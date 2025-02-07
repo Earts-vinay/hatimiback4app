@@ -69,7 +69,7 @@ function generate_payslip_pdf(booking, companyDetails) {
     try {
       // Read and compile Handlebars template
       const templateHtml = fs.readFileSync(
-        "G:\\hatimi-backend\\pms-backend\\downloadpdf.html",
+        "G:\\hatimiback4app\\downloadpdf.html",
         "utf8"
       );
       const template = handlebars.compile(templateHtml);
