@@ -38,7 +38,7 @@
       }
       .width50{
         /* width: 45%; */
-      font-size: 14px;
+      font-size: 13px;
       padding-top: 1px;
       padding-bottom: 0px;
       }
@@ -49,8 +49,8 @@
     padding-bottom: 3px
       }
       .mb-10{
-        margin-bottom: 10px;
-      font-size: 16px;
+      margin-bottom: 10px;
+      font-size: 15px;
       width: fit-content;
       text-decoration: underline;
       font-weight: 500 !important;
@@ -79,7 +79,7 @@
         font-size: 14px
       }
       .font10{
-        font-size: 16px
+        font-size: 15px
       }
       .heading{
         font-size: 18px;
@@ -133,7 +133,7 @@
       font-weight: 500
     }
     .paymentInfo{
-      font-size: 16px;
+      font-size: 15px;
       width: fit-content;
       text-decoration: underline;
       font-weight: 500 !important;
@@ -162,7 +162,7 @@
       vertical-align: top !important;
     }
     .ComapnyName{
-      font-size: 18px;
+    font-size: 16px;
     margin-bottom: 10px;
     text-transform: capitalize;
     }
@@ -403,20 +403,20 @@
                   {{/each}}
                 </td>
                 <td>
-                  ₹{{single_room_price}}/Night
+                  &#8377;{{single_room_price}}/Night
                   {{#each extra_services}}
                   <div class="servicesName">
-                      <p>₹{{single_service_price}}</p>
+                      <p>&#8377;{{single_service_price}}</p>
                   </div>
                   {{/each}}
                 </td>
-                <!-- <td>₹{{room_price_new}}</td> -->
+                <!-- <td>&#8377;{{room_price_new}}</td> -->
                 <td>{{daysDifference}} Night</td>
                 <td class="textEnd">
-                  ₹{{room_price}}
+                  &#8377;{{room_price}}
                   {{#each extra_services}}
                   <div class="servicesName">
-                      <p>₹{{service_price}}</p>
+                      <p>&#8377;{{service_price}}</p>
                   </div>
                   {{/each}}
                 </td>
@@ -450,34 +450,34 @@
 
                             <tr>
                                 <td class="newWidth">Amount</td>
-                                <td class="newWidth textEnd" >₹{{billing_info.total_Cost}}</td>
+                                <td class="newWidth textEnd" >&#8377;{{billing_info.total_Cost}}</td>
                             </tr>
                             {{#if billing_info.discount}}
                             <tr>
                                 <td class="newWidth">Discount</td>
-                                <td class="newWidth textEnd">₹{{billing_info.discount}}</td>
+                                <td class="newWidth textEnd">&#8377;{{billing_info.discount}}</td>
                             </tr>
                             {{/if}}
                             <tr>
                                 <td class="newWidth">Net Amount</td>
-                                <td class="newWidth textEnd">₹{{net_amount}}</td>
+                                <td class="newWidth textEnd">&#8377;{{net_amount}}</td>
                             </tr>
                             {{#if gst_data.cgst_percent}}
                             <tr>
                                 <td class="newWidth">CGST @ {{gst_data.cgst_percent}}%</td>
-                                <td class="newWidth textEnd">₹{{billing_info.cgst}}</td>
+                                <td class="newWidth textEnd">&#8377;{{billing_info.cgst}}</td>
                             </tr>
                             {{/if}}
                             {{#if gst_data.sgst_percent}}
                             <tr>
                                 <td class="newWidth">SGST @ {{gst_data.sgst_percent}}%</td>
-                                <td class="newWidth textEnd">₹{{billing_info.sgst}}</td>
+                                <td class="newWidth textEnd">&#8377;{{billing_info.sgst}}</td>
                             </tr>
                             {{/if}}
                             {{#if gst_data.igst_percent}}
                             <tr>
                                 <td class="newWidth">IGST @ {{gst_data.igst_percent}}%</td>
-                                <td class="newWidth textEnd">₹{{billing_info.igst}}</td>
+                                <td class="newWidth textEnd">&#8377;{{billing_info.igst}}</td>
                             </tr>
                             {{/if}}
                             <tr>
@@ -485,7 +485,7 @@
                             </tr>
                             <tr class="lastAmount">
                                 <td class="newWidth" >Amount Paid</td>
-                                <td class="newWidth textEnd">₹{{billing_info.amount_payable}}</td>
+                                <td class="newWidth textEnd">&#8377;{{billing_info.amount_payable}}</td>
                             </tr>
                       </tbody>
                 </table>
@@ -494,106 +494,6 @@
             </tbody>
           </table>
     </div>
-
-
-    <!-- Extra Services -->
-
-    <!-- <div class="Extra_Services">
-        <h6 class="font10"> Extra Service details </h6>
-        <table class="table roomDeatilsTable">
-            <thead class="">
-              <tr>
-                <th scope="col">Sr No</th>
-                <th scope="col">Service Name</th>
-                <th scope="col">Service Quanity</th>
-                <th scope="col">Charges/Night</th>
-                <th scope="col">Stay</th>
-                <th scope="col" class="textEnd">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-            {{#each extra_services_info}}
-                  <tr>
-                  <td>{{index}}</td>
-                  <td>{{service_name}}</td>
-                  <td>{{service_count}}</td>
-                  <td>₹{{single_service_price}}/Night</td>
-                  <td>{{daysDifference}} Night</td>
-                  <td class="textEnd">₹{{service_price}}</td>
-                </tr>
-            {{/each}}
-            <tr>
-                <td colspan="4" class="paddingTable borderBottomNone paddingLeftNone">
-                    <table>
-                      <tbody>
-                        <tr>
-                            <td colspan="2"><h6 class=" mb-15 paymentInfo">Payment Information</h6></td>
-                        </tr>
-                            <tr>
-                                <td class="FontWei500" style="width:30%">Name</td>
-                                <td >{{customer_info.name}}</td>
-                            </tr>
-                            <tr>
-                                <td class="FontWei500" style="width:30%">Mode of payment</td>
-                                <td style="text-transform : capitalize">{{mode_of_payment}}</td>
-                            </tr>
-                            <tr>
-                                <td class="FontWei500" style="width:30%">Transaction ID</td>
-                                <td>{{transaction_id}}</td>
-                            </tr>
-                      </tbody>
-                    </table>
-                </td>
-                <td colspan="2" class="borderBottomNone">
-                  <table>
-                        <tbody>
-
-                              <tr>
-                                  <td class="newWidth">Amount</td>
-                                  <td class="newWidth textEnd" >₹{{billing_info.total_Cost}}</td>
-                              </tr>
-                              {{#if billing_info.discount}}
-                              <tr>
-                                  <td class="newWidth">Discount</td>
-                                  <td class="newWidth textEnd">₹{{billing_info.discount}}</td>
-                              </tr>
-                              {{/if}}
-                              <tr>
-                                  <td class="newWidth">Net Amount</td>
-                                  <td class="newWidth textEnd">₹{{net_amount}}</td>
-                              </tr>
-                              {{#if gst_data.cgst_percent}}
-                              <tr>
-                                  <td class="newWidth">CGST @ {{gst_data.cgst_percent}}%</td>
-                                  <td class="newWidth textEnd">₹{{billing_info.cgst}}</td>
-                              </tr>
-                              {{/if}}
-                              {{#if gst_data.sgst_percent}}
-                              <tr>
-                                  <td class="newWidth">SGST @ {{gst_data.sgst_percent}}%</td>
-                                  <td class="newWidth textEnd">₹{{billing_info.sgst}}</td>
-                              </tr>
-                              {{/if}}
-                              {{#if gst_data.igst_percent}}
-                              <tr>
-                                  <td class="newWidth">IGST @ {{gst_data.igst_percent}}%</td>
-                                  <td class="newWidth textEnd">₹{{billing_info.igst}}</td>
-                              </tr>
-                              {{/if}}
-                              <tr>
-                                  <td class="newWidth border-bottom" colspan="2"></td>
-                              </tr>
-                              <tr class="lastAmount">
-                                  <td class="newWidth" >Amount Paid</td>
-                                  <td class="newWidth textEnd">₹{{billing_info.amount_payable}}</td>
-                              </tr>
-                        </tbody>
-                  </table>
-                </td>
-            </tr>
-            </tbody>
-          </table>
-    </div> -->
 
     <div class="">
         <p class="text-center thankSection">Thank you for Booking with us</p>
@@ -608,70 +508,6 @@
             </tr>
         </tbody>
     </table>
-    <!-- <div class="paymentdeatils">
-      <h6 class="font10 mb-15">Payment Information</h6>
-      <table>
-          <tbody>
-              <tr>
-                    <td class="width43">
-                      <table class="mt-70">
-                            <tbody>
-
-                                  <tr>
-                                      <td class="newWidth">Name</td>
-                                      <td class="newWidth">{{customer_info.name}}</td>
-                                  </tr>
-                                  <tr>
-                                      <td class="newWidth">Mode of payment</td>
-                                      <td class="newWidth">{{mode_of_payment}}</td>
-                                  </tr>
-                                  <tr>
-                                      <td class="newWidth">Transaction ID</td>
-                                      <td class="newWidth">{{transaction_id}}</td>
-                                  </tr>
-                            </tbody>
-                      </table>
-                    </td>
-                    <td class="width20"></td>
-                    <td class="width30">
-                          <table>
-                                <tbody>
-
-                                      <tr>
-                                          <td class="newWidth">Amount</td>
-                                          <td class="newWidth">₹{{billing_info.total_Cost}}</td>
-                                      </tr>
-                                      <tr>
-                                          <td class="newWidth">Discount</td>
-                                          <td class="newWidth">₹{{billing_info.discount}}</td>
-                                      </tr>
-                                      <tr>
-                                          <td class="newWidth">CGST (%)</td>
-                                          <td class="newWidth">₹{{billing_info.cgst}}</td>
-                                      </tr>
-                                      <tr>
-                                          <td class="newWidth">SGST (%)</td>
-                                          <td class="newWidth">₹{{billing_info.sgst}}</td>
-                                      </tr>
-                                      <tr>
-                                          <td class="newWidth">IGST (%)</td>
-                                          <td class="newWidth">₹{{billing_info.igst}}</td>
-                                      </tr>
-                                      <tr>
-                                          <td class="newWidth border-bottom" colspan="2"></td>
-                                      </tr>
-                                      <tr>
-                                          <td class="newWidth">Amount</td>
-                                          <td class="newWidth">₹{{billing_info.amount_payable}}</td>
-                                      </tr>
-                                </tbody>
-                          </table>
-                    </td>
-              </tr>
-          </tbody>
-      </table>
-    </div> -->
-
 </section>
 </div>
 
